@@ -31,7 +31,7 @@
 
   let color = "black";
   let nickname = prompt("이름 입력");
-  let vertify = false;   1
+  let vertify = false;
   function vert(){
     if (nickname == "고예찬") {
       let pw = prompt("고예찬 인증 번호를 입력하시오.");
@@ -76,8 +76,12 @@
     let text;
     if(nickname == "고예찬"){
         if(vertify == true){
-            if(value === "/reset"){
+            if(value === "/r"){
                 await deleteAllMessages();
+                return;
+            }else if(value === "/p"){
+                var point = prompt("공지 입력")
+                text = `=====${point}=====`;
             }else{
                 text = `${nickname}: ${value}`;
             }
@@ -89,7 +93,7 @@
         text = `${nickname}: ${value}`;
     }
     await addDoc(collection(db, "messages"), {
-      text,
+      text: text,
       created: Date.now()
     });
     const snap = await getDocs(collection(db, "messages"));
